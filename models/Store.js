@@ -1,8 +1,13 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/database");
-class Store extends Model {}
+const {v,schema} =  require('./secure/storeValidation');
+class Store extends Model {
+    static storeValidation(body) {
+        return v.validate(body,schema);
+    }
+}
 Store.init({
-    accountingCode:{
+    code:{
         type:DataTypes.STRING,
         allowNull:false
     },

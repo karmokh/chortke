@@ -1,6 +1,11 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/database");
-class Product extends Model {}
+const {v,schema} =  require('./secure/productValidation');
+class Product extends Model {
+    static productValidation(body) {
+        return v.validate(body,schema);
+    }
+}
 Product.init({
     accountingCode:{
         type:DataTypes.STRING,
@@ -59,13 +64,17 @@ Product.init({
     },
     control:{
         type:DataTypes.BOOLEAN,
-        defaultValue: 1
+        defaultValue: true
     },
     type:{
         type:DataTypes.ENUM('کالا','خدمات')
     },
+    imageUrl:{
+        type:DataTypes.STRING
+    },
     active:{
         type:DataTypes.BOOLEAN,
+        defaultValue: true
     },
 },{
     sequelize,

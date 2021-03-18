@@ -1,6 +1,11 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/database");
-class Bank extends Model {}
+const {v,schema} =  require('./secure/bankValidation');
+class Bank extends Model {
+    static bankValidation(body) {
+        return v.validate(body,schema);
+    }
+}
 Bank.init({
     accountingCode:{
         type:DataTypes.STRING,
@@ -8,7 +13,7 @@ Bank.init({
     },
     name:{
         type:DataTypes.STRING,
-        allowNull:false
+        // allowNull:false
     },
     branch:{
         type:DataTypes.STRING,
@@ -24,11 +29,11 @@ Bank.init({
     },
     default:{
         type:DataTypes.BOOLEAN,
-        defaultValue: 0
+        defaultValue: false
     },
     active:{
         type:DataTypes.BOOLEAN,
-        defaultValue:1
+        defaultValue:true
     }
 },{
     sequelize,

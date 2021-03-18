@@ -1,6 +1,11 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/database");
-class Salary extends Model{}
+const {v,schema} =  require('./secure/salaryValidation');
+class Salary extends Model{
+    static salaryValidation(body) {
+        return v.validate(body,schema);
+    }
+}
 Salary.init({
     accountingCode:{
         type:DataTypes.STRING,
@@ -18,11 +23,11 @@ Salary.init({
     },
     default:{
         type:DataTypes.BOOLEAN,
-        defaultValue: 0
+        defaultValue: false
     },
     active:{
         type:DataTypes.BOOLEAN,
-        defaultValue:1
+        defaultValue: true
     }
 },{
     sequelize,

@@ -27,7 +27,7 @@ Transfer.init({
     description:{
         type:DataTypes.TEXT,
     },
-    formId: DataTypes.INTEGER,
+    fromId: DataTypes.INTEGER,
     fromType: DataTypes.INTEGER,
     toId: DataTypes.INTEGER,
     toType: DataTypes.INTEGER,

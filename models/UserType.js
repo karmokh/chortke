@@ -6,9 +6,6 @@ UserType.init({
         type : DataTypes.STRING,
         allowNull : false
     },
-    parent_id:{
-        type : DataTypes.INTEGER
-    }
 },{
     sequelize,
     modelName: 'UserType',

@@ -1,6 +1,11 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/database");
-class Project extends Model {}
+const {v,schema} =  require('./secure/projectValidation');
+class Project extends Model {
+    static projectValidation(body) {
+        return v.validate(body,schema);
+    }
+}
 Project.init({
     name:{
         type:DataTypes.STRING,
@@ -8,11 +13,11 @@ Project.init({
     },
     default:{
         type:DataTypes.BOOLEAN,
-        defaultValue:0
+        defaultValue:false
     },
     active:{
         type:DataTypes.BOOLEAN,
-        defaultValue:0
+        defaultValue:true
     },
 },{
     sequelize,

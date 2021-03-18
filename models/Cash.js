@@ -1,6 +1,11 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/database");
-class Cash extends Model {}
+const {v,schema} =  require('./secure/cashValidation');
+class Cash extends Model {
+    static cashValidation(body) {
+        return v.validate(body,schema);
+    }
+}
 Cash.init({
     accountingCode:{
         type:DataTypes.STRING,
@@ -18,11 +23,11 @@ Cash.init({
     },
     default:{
         type:DataTypes.BOOLEAN,
-        defaultValue: 0
+        defaultValue: false
     },
     active:{
         type:DataTypes.BOOLEAN,
-        defaultValue:1
+        defaultValue: true
     }
 },{
     sequelize,
