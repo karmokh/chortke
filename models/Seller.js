@@ -1,37 +1,44 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const {Sequelize, DataTypes, Model} = require("sequelize");
 const sequelize = require("../config/database");
-const {v,schema} =  require('./secure/sellerValidation');
+const {v, schema} = require('./secure/sellerValidation');
+
 class Seller extends Model {
     static sellerValidation(body) {
-        return v.validate(body,schema);
+        return v.validate(body, schema);
     }
 }
+
 Seller.init({
-    accountingCode:{
-        type:DataTypes.STRING,
-        allowNull:false
+    accountingCode: {
+        type: DataTypes.STRING(16),
     },
-    name:{
-        type:DataTypes.STRING,
-        allowNull:false
+    firstName: {
+        type: DataTypes.STRING(32),
+        allowNull: false,
     },
-    sales:{
-        type:DataTypes.STRING,
+    lastName: {
+        type: DataTypes.STRING(32),
+        allowNull: false,
     },
-    salesReturn:{
-        type:DataTypes.STRING,
+    saleCommission: {
+        type: DataTypes.TINYINT.UNSIGNED,
+        defaultValue: 0
     },
-    description:{
-        type:DataTypes.TEXT,
+    saleReturnCommission: {
+        type: DataTypes.TINYINT.UNSIGNED,
+        defaultValue: 0
     },
-    commisionFactor:{
-        type:DataTypes.BOOLEAN,
-        defaultValue:0
+    description: {
+        type: DataTypes.TEXT,
+    },
+    setFactorCommission: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: 0
     }
-},{
+}, {
     sequelize,
     modelName: 'Seller',
-    timestamps:true,
+    timestamps: true,
     paranoid: true,
 });
 module.exports = Seller;

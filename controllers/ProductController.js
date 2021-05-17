@@ -34,7 +34,7 @@ exports.index = async (req,res,next)=>{
                 product.imageUrl = req.get('host') + product.imageUrl;
             }
         })
-        res.status(200).json({message:"محصولات",products,paginate})
+        res.status(200).json({message:"products",products,paginate})
     }catch (err) {
         if (!err.statusCode){
             err.statusCode = 500;

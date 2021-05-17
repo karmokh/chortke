@@ -66,7 +66,6 @@ const clearFile = filePath => {
 };
 const editorImage = (from,to)=>{
     sharp(from)
-        .rotate()
         .resize(500)
         .toFile(to)
 }

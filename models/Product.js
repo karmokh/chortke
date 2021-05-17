@@ -1,85 +1,60 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const {Sequelize, DataTypes, Model} = require("sequelize");
 const sequelize = require("../config/database");
-const {v,schema} =  require('./secure/productValidation');
+const {v, schema} = require('./secure/productValidation');
+
 class Product extends Model {
     static productValidation(body) {
-        return v.validate(body,schema);
+        return v.validate(body, schema);
     }
 }
+
 Product.init({
-    accountingCode:{
-        type:DataTypes.STRING,
+    accountingCode: {
+        type: DataTypes.STRING(16),
     },
-    name:{
-        type:DataTypes.STRING,
-        allowNull:false
+    title: {
+        type: DataTypes.STRING(64),
+        allowNull: false
     },
-    productCode:{
-        type:DataTypes.STRING,
-    },
-    barcode:{
-        type:DataTypes.STRING,
-    },
-    sellPrice:{
-        type:DataTypes.STRING,
-    },
-    salesDescription:{
-        type:DataTypes.STRING,
-    },
-    buyPrice:{
-        type:DataTypes.STRING,
-    },
-    buyDescription:{
-        type:DataTypes.STRING,
-    },
-    mainUnit:{
-        type:DataTypes.STRING,
-    },
-    subUnit:{
-        type:DataTypes.STRING,
-    },
-    ConversionRatio:{
-        type:DataTypes.INTEGER
-    },
-    description:{
-        type:DataTypes.TEXT,
-    },
-    salesTax:{
-        type:DataTypes.INTEGER
-    },
-    buyTax:{
-        type:DataTypes.INTEGER
-    },
-    stock:{
-        type:DataTypes.STRING,
-    },
-    orderTime:{
-        type:DataTypes.STRING,
-    },
-    orderPoint:{
-        type:DataTypes.STRING,
-    },
-    orderMinimum:{
-        type:DataTypes.STRING,
-    },
-    control:{
-        type:DataTypes.BOOLEAN,
+    isProduct: {
+        type: DataTypes.BOOLEAN,
         defaultValue: true
     },
-    type:{
-        type:DataTypes.ENUM('کالا','خدمات')
+    code: {
+        type: DataTypes.STRING(32),
     },
-    imageUrl:{
-        type:DataTypes.STRING
+    barcode: {
+        type: DataTypes.STRING(64),
     },
-    active:{
-        type:DataTypes.BOOLEAN,
+    imageUrl: {
+        type: DataTypes.STRING(128)
+    },
+    sellPrice: {
+        type: DataTypes.INTEGER.UNSIGNED,
+    },
+    salesDescription: {
+        type: DataTypes.TEXT,
+    },
+    buyPrice: {
+        type: DataTypes.INTEGER.UNSIGNED,
+    },
+    buyDescription: {
+        type: DataTypes.TEXT,
+    },
+    saleTax: {
+        type: DataTypes.TINYINT.UNSIGNED
+    },
+    buyTax: {
+        type: DataTypes.TINYINT.UNSIGNED
+    },
+    active: {
+        type: DataTypes.BOOLEAN,
         defaultValue: true
     },
-},{
+}, {
     sequelize,
     modelName: 'Product',
-    timestamps:true,
+    timestamps: true,
     paranoid: true,
 });
 module.exports = Product;

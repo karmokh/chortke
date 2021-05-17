@@ -7,8 +7,12 @@ class Business extends Model {
     }
 }
 Business.init({
-    name:{
-        type : DataTypes.STRING,
+    nickName:{
+        type : DataTypes.STRING(64),
+        allowNull : false
+    },
+    legalName:{
+        type : DataTypes.STRING(64),
         allowNull : false
     },
 },{

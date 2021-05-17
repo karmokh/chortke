@@ -1,25 +1,29 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const {Sequelize, DataTypes, Model} = require("sequelize");
 const sequelize = require("../config/database");
-class Income extends Model {}
+
+class Income extends Model {
+}
+
 Income.init({
-    accountingCode:{
-        type:DataTypes.STRING,
+    accountingCode: {
+        type: DataTypes.STRING(16),
+        allowNull: false
     },
-    amount:{
-        type:DataTypes.STRING,
-        allowNull:false
+    priceUnit: {
+        type: DataTypes.STRING(16),
+        allowNull: false
     },
-    date:{
-        type:DataTypes.STRING,
-        allowNull:false
+    date: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     },
-    description:{
-        type:DataTypes.TEXT,
+    description: {
+        type: DataTypes.TEXT,
     },
-},{
+}, {
     sequelize,
     modelName: 'Income',
-    timestamps:true,
+    timestamps: true,
     paranoid: true,
 });
 module.exports = Income;

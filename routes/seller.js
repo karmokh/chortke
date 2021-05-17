@@ -1,7 +1,7 @@
 const express = require('express');
 const SellerController = require('../controllers/SellerController');
 const router = express.Router();
-router.get('/sellers',SellerController.index);
+router.get('/',SellerController.index);
 router.get('/:sellerId',SellerController.show);
 router.post('/',SellerController.create);
 router.put('/:sellerId',SellerController.update);

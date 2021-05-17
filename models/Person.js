@@ -1,96 +1,47 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const {Sequelize, DataTypes, Model} = require("sequelize");
 const sequelize = require("../config/database");
-const {v,schema} =  require('./secure/personValidation');
+const {v, schema} = require('./secure/personValidation');
+
 class Person extends Model {
     static personValidation(body) {
-        return v.validate(body,schema);
+        return v.validate(body, schema);
     }
 }
+
 Person.init({
-    code:{
-        type : DataTypes.STRING,
+    nickName: {
+        type: DataTypes.STRING(32),
+        allowNull: false
     },
-    name:{
-        type : DataTypes.STRING,
-        allowNull : false
+    firstName: {
+        type: DataTypes.STRING(32),
     },
-    firstName:{
-        type : DataTypes.STRING,
+    lastName: {
+        type: DataTypes.STRING(32),
     },
-    lastName:{
-        type : DataTypes.STRING,
+    title: {
+        type: DataTypes.STRING(32),
     },
-    title:{
-        type : DataTypes.STRING,
+    company: {
+        type: DataTypes.STRING(32),
     },
-    company:{
-        type : DataTypes.STRING,
+    avatar: {
+        type: DataTypes.STRING(128),
     },
-    description:{
-        type : DataTypes.TEXT,
+    accountingCode: {
+        type: DataTypes.STRING(16),
     },
-    contactCredit:{
-        type : DataTypes.STRING,
+    description: {
+        type: DataTypes.TEXT,
     },
-    nationalCode:{
-        type : DataTypes.STRING,
-    },
-    economicCode:{
-        type : DataTypes.STRING,
-    },
-    registrationNumber:{
-        type : DataTypes.STRING,
-    },
-    phone:{
-        type : DataTypes.STRING,
-    },
-    mobile:{
-        type : DataTypes.STRING,
-    },
-    fax:{
-        type : DataTypes.STRING,
-    },
-    email:{
-        type : DataTypes.STRING,
-    },
-    web:{
-        type : DataTypes.STRING,
-    },
-    address:{
-        type: DataTypes.STRING,
-    },
-    country:{
-        type: DataTypes.STRING,
-    },
-    state:{
-        type: DataTypes.STRING,
-    },
-    city:{
-        type: DataTypes.STRING,
-    },
-    postalCode:{
-        type: DataTypes.STRING,
-    },
-    sharePercent:{
-        type: DataTypes.STRING,
-    },
-    liability:{
-        type: DataTypes.STRING,
-    },
-    credits:{
-        type: DataTypes.STRING,
-    },
-    imageUrl:{
-        type: DataTypes.STRING,
-    },
-    active:{
-        type:DataTypes.BOOLEAN,
-        defaultValue:true
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
     }
-},{
+}, {
     sequelize,
     modelName: 'Person',
-    timestamps:true,
+    timestamps: true,
     paranoid: true,
 });
 module.exports = Person;

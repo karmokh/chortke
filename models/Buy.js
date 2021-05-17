@@ -1,61 +1,50 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const {Sequelize, DataTypes, Model} = require("sequelize");
 const sequelize = require("../config/database");
-class Buy extends Model {}
+
+class Buy extends Model {
+}
+
 Buy.init({
-    accountingCode:{
-        type:DataTypes.STRING,
-        allowNull:false
+    title: {
+        type: DataTypes.STRING(64),
+        allowNull: false
     },
-    date:{
-        type:DataTypes.STRING,
-        allowNull:false
+    code: {
+        type: DataTypes.STRING(16),
+        allowNull: false
     },
-    dueDate:{
-        type:DataTypes.STRING,
-        allowNull:false
+    date: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     },
-    number:{
-        type:DataTypes.STRING,
-        allowNull:false
+    dueDate: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     },
-    payable:{
-        type:DataTypes.STRING,
-        allowNull:false
+    priceUnit: {
+        type: DataTypes.STRING(16),
     },
-    paid:{
-        type:DataTypes.STRING,
+    transferPrice: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        defaultValue: 0
     },
-    rest:{
-        type:DataTypes.STRING,
+    discount: {
+        type: DataTypes.TINYINT.UNSIGNED,
+        defaultValue: 0
     },
-    discount:{
-        type:DataTypes.STRING,
+    status: {
+        type: DataTypes.ENUM('پیش نویس', 'تایید شده', 'دریافت شده', 'مرجوع شده')
     },
-    sum:{
-        type:DataTypes.STRING,
+    reference: {
+        type: DataTypes.STRING(64),
     },
-    freight:{
-        type:DataTypes.STRING,
-    },
-    title:{
-        type:DataTypes.STRING,
-    },
-    status:{
-        type:DataTypes.ENUM('پیش نویس','تایید شده','پرداخت شده','مرجوع شده')
-    },
-    taxt:{
-        type:DataTypes.STRING,
-    },
-    description:{
-        type:DataTypes.TEXT,
-    },
-    refrence:{
-        type:DataTypes.STRING,
-    },
-},{
+    description: {
+        type: DataTypes.TEXT,
+    }
+}, {
     sequelize,
     modelName: 'Buy',
-    timestamps:true,
+    timestamps: true,
     paranoid: true,
 });
 module.exports = Buy;

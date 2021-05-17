@@ -4,7 +4,7 @@ const errorHandle = require("./errorHandele/errorCreate");
 exports.index = async (req, res, next) => {
     try {
         let banks = await Bank.findAll();
-        res.status(200).json({message: "بانک ها", banks})
+        res.status(200).json({message: "banks", banks})
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;

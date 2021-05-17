@@ -1,33 +1,29 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const {Sequelize, DataTypes, Model} = require("sequelize");
 const sequelize = require("../config/database");
-class Waste extends Model {}
+
+class Waste extends Model {
+}
+
 Waste.init({
-    accountingCode:{
-        type:DataTypes.STRING,
-        allowNull:false
+    accountingCode: {
+        type: DataTypes.STRING(16),
+        allowNull: false
     },
-    date:{
-        type:DataTypes.STRING,
-        allowNull:false
+    date: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     },
-    description:{
-        type:DataTypes.TEXT,
+    reference: {
+        type: DataTypes.STRING(64),
     },
-    number:{
-        type:DataTypes.STRING,
-        allowNull:false
+    description: {
+        type: DataTypes.TEXT,
+        allowNull: false
     },
-    sum:{
-        type:DataTypes.STRING,
-        allowNull:false
-    },
-    refrence:{
-        type:DataTypes.STRING,
-    },
-},{
+}, {
     sequelize,
     modelName: 'Waste',
-    timestamps:true,
+    timestamps: true,
     paranoid: true,
 });
 module.exports = Waste;

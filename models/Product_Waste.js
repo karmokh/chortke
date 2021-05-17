@@ -1,30 +1,34 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const {Sequelize, DataTypes, Model} = require("sequelize");
 const sequelize = require("../config/database");
-class Product_Waste extends Model {}
+
+class Product_Waste extends Model {
+}
+
 Product_Waste.init({
-    description:{
-        type:DataTypes.TEXT,
+    id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
     },
-    util:{
-        type:DataTypes.STRING,
-        allowNull:false
+    unit: {
+        type: DataTypes.STRING(16),
     },
-    number:{
-        type:DataTypes.STRING,
-        allowNull:false
+    quantity: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false
     },
-    price:{
-        type:DataTypes.STRING,
-        allowNull:false
+    price: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false
     },
-    sum:{
-        type:DataTypes.STRING,
-        allowNull:false
-    }
-},{
+    description: {
+        type: DataTypes.TEXT,
+    },
+}, {
     sequelize,
     modelName: 'Product_Waste',
-    timestamps:true,
+    timestamps: true,
     paranoid: true,
 });
 module.exports = Product_Waste;

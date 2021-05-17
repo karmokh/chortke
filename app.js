@@ -2,7 +2,6 @@ const path = require("path");
 
 const express = require("express");
 const dotEnv = require("dotenv");
-const bodyParser = require("body-parser");
 
 const isAuth = require('./middlewares/is-auth');
 const {multer, fileFilter, fileStorage} = require('./config/fileHandle');
@@ -16,7 +15,7 @@ relation();
 // Load Config
 dotEnv.config({path: "./config/config.env"});
 //BodyParser
-app.use(bodyParser.json());
+app.use(express.json());
 // file(image) handler
 // app.use(multer({ storage: fileStorage, fileFilter: fileFilter}).single('image'));
 
@@ -27,40 +26,40 @@ app.use('/images', express.static(path.join(__dirname, 'storage', 'images')));
 // Cross-Origin Resource Sharing for handle headers
 app.use(cors);
 //authentication middleware
-// app.use(isAuth);
+app.use("/api/user", require("./routes/user"));
+app.use(isAuth);
 // Routes
-app.use("/user", require("./routes/user"));
-app.use("/business", require("./routes/personType"));
-app.use("/person", require("./routes/person"));
-app.use("/personType", require("./routes/personType"));
-app.use("/seller", require("./routes/seller"));
-app.use("/project", require("./routes/project"));
-app.use("/product", require("./routes/product"));
-app.use("/productType", require("./routes/productType"));
-app.use("/accounting", require("./routes/accounting"));
-app.use("/transfer", require("./routes/transfer"));
-app.use("/sale", require("./routes/sale"));
-app.use("/saleReturn", require("./routes/saleReturn"));
-app.use("/buy", require("./routes/buy"));
-app.use("/buyReturn", require("./routes/buyReturn"));
-app.use("/income", require("./routes/income"));
-app.use("/receive", require("./routes/receive"));
-app.use("/expense", require("./routes/expense"));
-app.use("/payment", require("./routes/payment"));
-app.use("/bank", require("./routes/bank"));
-app.use("/salary", require("./routes/salary"));
-app.use("/cash", require("./routes/cash"));
-app.use("/check", require("./routes/check"));
-app.use("/store", require("./routes/store"));
-app.use("/storeHandle", require("./routes/storeHandle"));
-app.use("/waste", require("./routes/waste"));
+app.use("/api/businesss", require("./routes/business"));
+app.use("/api/persons", require("./routes/person"));
+app.use("/api/personTypes", require("./routes/personType"));
+app.use("/api/sellers", require("./routes/seller"));
+app.use("/api/projects", require("./routes/project"));
+app.use("/api/products", require("./routes/product"));
+app.use("/api/categories", require("./routes/category"));
+app.use("/api/accountings", require("./routes/accounting"));
+app.use("/api/transfers", require("./routes/transfer"));
+app.use("/api/sales", require("./routes/sale"));
+app.use("/api/saleReturns", require("./routes/saleReturn"));
+app.use("/api/buy", require("./routes/buy"));
+app.use("/api/buyReturn", require("./routes/buyReturn"));
+app.use("/api/incomes", require("./routes/income"));
+app.use("/api/receives", require("./routes/receive"));
+app.use("/api/costs", require("./routes/cost"));
+app.use("/api/payments", require("./routes/payment"));
+app.use("/api/banks", require("./routes/bank"));
+app.use("/api/funds", require("./routes/fund"));
+app.use("/api/cashiers", require("./routes/cashier"));
+app.use("/api/cheques", require("./routes/cheque"));
+app.use("/api/warehouses", require("./routes/warehouse"));
+app.use("/api/warehouseHandles", require("./routes/warehouseHandle"));
+app.use("/api/wastes", require("./routes/waste"));
 
 // handle errors
 app.use(require('./controllers/errorHandele/errorController').getErrors);
 app.use(require('./controllers/errorHandele/errorController').get404);
 const PORT = process.env.PORT || 8080;
 sequelize
-    .sync({force:true})
+    .sync()
     .then((result) => {
         console.log(result);
         app.listen(PORT, () => {
